@@ -9,7 +9,9 @@ const generateJoinMessage = (players: Player[]) => {
   const writeLine = (value: string) => message.push(value)
 
   // Write the header.
-  writeLine(`:among_us_orange_dance:参加人数\n*${players.length}* 人がオフィスにいます`)
+  writeLine(
+    `:among_us_orange_dance:参加人数\n*${players.length}* 人がオフィスにいます`
+  )
   const playerNames = players.map((player) => player.name).join(', ')
   newLine()
   if (playerNames) {
@@ -29,7 +31,6 @@ export const deleteAllMessages = async (app: SlackApp, channelId: string) => {
     if (!history.messages) return
     await Promise.all(
       history.messages.map(async (message) => {
-        console.log('👺',message?.app_id)
         if (message?.app_id === process.env.SLACK_BOT_ID) {
           return await app.client.chat.delete({
             channel: channelId,
@@ -80,7 +81,6 @@ export const updateJoinMessage = async (
   slack: SlackApp,
   slackTs: SlackTs
 ): Promise<SlackTs> => {
-  const today = dayjs().format('YYYY-MM-DD')
   try {
     // slackメッセージを更新
     const players = Object.keys(gather.players).map(

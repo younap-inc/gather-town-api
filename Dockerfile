@@ -1,7 +1,6 @@
 # 依存パッケージのインストール
 FROM node:16.10.0 as deps
 WORKDIR /app
-# packeg.jsonとpackage-lock.jsonのみコピーする
 COPY package.json yarn.lock ./
 RUN yarn install
 
@@ -9,7 +8,6 @@ RUN yarn install
 FROM node:16.10.0 as builder
 WORKDIR /app
 COPY . .
-# depsステージでインストールしたパッケージをコピーする
 COPY --from=deps /app/node_modules ./node_modules
 RUN yarn run build
 
@@ -17,8 +15,10 @@ RUN yarn run build
 FROM node:16.10.0
 WORKDIR /app
 ENV NODE_ENV production
-# buildによって.next配下に生成されたhtml、JSON、JSファイルをコピーする
-COPY --from=builder /app/package.json ./yarn.lock
+COPY --from=builder /app/package.json /app/yarn.lock ./
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
+
 EXPOSE 8080
 ENV PORT 8080
-CMD [ "PORT=8080","yarn", "start" ]
+CMD ["yarn", "start"]

@@ -39,7 +39,20 @@ let slackTs: SlackTs = { date: '', ts: '' }
       console.log('player joined')
       if (processing) return
       processing = true
-      slackTs = await postJoinMessage(gather, slack)
+      const lastMessage = await slack.client.conversations.history({
+        channel: process.env.SLACK_CHANNEL_ID || '',
+        limit: 1,
+      })
+      const lastMessageUpdate = dayjs.unix(lastMessage.messages[0].ts)
+      // 1分以上経過している場合は再投稿
+      if (dayjs().diff(lastMessageUpdate, 'second') > 10) {
+        slackTs = await postJoinMessage(gather, slack)
+      } else {
+        slackTs = await updateJoinMessage(gather, slack, {
+          date: slackTs.date,
+          ts: lastMessage.messages[0].ts,
+        })
+      }
       processing = false
     })
 
