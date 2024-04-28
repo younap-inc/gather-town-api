@@ -1,3 +1,7 @@
+# デプロイ方法
+> gcloud config set run/region asia-northeast1
+> gcloud run deploy gather-notify-slack 
+
 # Gather Town API
 [Gather](https://app.gather.town/) の WebSocket API で遊ぶためのリポジトリ
 |  |  |
