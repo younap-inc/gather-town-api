@@ -1,5 +1,4 @@
 # Gather Town API
-test
 [Gather](https://app.gather.town/) の WebSocket API で遊ぶためのリポジトリ
 |  |  |
 | :---: | :---: |
