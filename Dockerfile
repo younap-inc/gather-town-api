@@ -21,4 +21,4 @@ ENV NODE_ENV production
 COPY --from=builder /app/package.json ./yarn.lock
 EXPOSE 8080
 ENV PORT 8080
-CMD [ "yarn", "start" ]
+CMD [ "PORT=8080","yarn", "start" ]
