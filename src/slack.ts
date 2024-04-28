@@ -7,7 +7,7 @@ const app = new App({
   appToken: process.env.SLACK_APP_TOKEN,
   // ソケットモードではポートをリッスンしませんが、アプリを OAuth フローに対応させる場合、
   // 何らかのポートをリッスンする必要があります
-  port: process.env.PORT || 3000,
+  port: process.env.PORT || 8080,
 })
 
 export const initSlack = async () => {

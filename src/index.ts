@@ -1,9 +1,3 @@
-import {
-  Game as Gather,
-  Player,
-  SpriteDirectionEnum_ENUM,
-} from '@gathertown/gather-game-client'
-import { App as SlackApp } from '@slack/bolt'
 import * as http from 'http'
 import { initGather } from './gather'
 import {
