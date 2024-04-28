@@ -2,6 +2,8 @@ import type { Game as Gather, Player } from '@gathertown/gather-game-client'
 import { App as SlackApp } from '@slack/bolt'
 import { SlackTs } from './types'
 const dayjs = require('dayjs')
+import 'dayjs/locale/ja'
+dayjs.locale('ja')
 
 const generateJoinMessage = (players: Player[]) => {
   let message: string[] = []
@@ -18,7 +20,7 @@ const generateJoinMessage = (players: Player[]) => {
     writeLine(`:portrait01:参加者\n ${playerNames}`)
     newLine()
   }
-  writeLine(`更新日時 ${dayjs().format('HH:mm:ss')}`)
+  writeLine(`更新日時 ${dayjs().locale('ja').format('HH:mm:ss')}`)
   newLine()
   return message.join('\n')
 }
