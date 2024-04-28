@@ -1,7 +1,6 @@
 # Gather Town API
 
 [Gather](https://app.gather.town/) の WebSocket API で遊ぶためのリポジトリ
-build
 |  |  |
 | :---: | :---: |
 |  <img src="https://user-images.githubusercontent.com/17779386/236443642-8eb7d1da-3454-421f-a96d-34d5f488777f.gif" width="300"/> |  <img src="https://user-images.githubusercontent.com/17779386/236444474-becdf142-1872-46c3-9ca0-fb3d7026761f.gif" width="400" />|
