@@ -12,7 +12,7 @@ const generateJoinMessage = (players: Player[]) => {
 
   // Write the header.
   writeLine(
-    `:among_us_orange_dance:参加人数\n*${players.length}* 人がオフィスにいます`
+    `:目玉焼き:参加人数\n*${players.length}* 人がオフィスにいるって`
   )
   const playerNames = players.map((player) => player.name).join(', ')
   newLine()
