@@ -12,7 +12,7 @@ const generateJoinMessage = (players: Player[]) => {
 
   // Write the header.
   writeLine(
-    `:fried_egg:参加人数\n*${players.length}* 人がオフィスにいるって`
+    `:fried_egg:参加人数\n*${players.length}* 人がオフィスにいるぞ`
   )
   const playerNames = players.map((player) => player.name).join(', ')
   newLine()
@@ -20,7 +20,7 @@ const generateJoinMessage = (players: Player[]) => {
     writeLine(`:portrait01:参加者\n ${playerNames}`)
     newLine()
   }
-  writeLine(`更新日時 ${dayjs().locale('ja').format('HH:mm:ss')}`)
+  writeLine(`更新日時 ${dayjs().format('HH:mm:ss')}`)
   newLine()
   return message.join('\n')
 }
