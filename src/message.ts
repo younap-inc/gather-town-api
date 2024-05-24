@@ -1,11 +1,11 @@
 import type { Game as Gather, Player } from '@gathertown/gather-game-client'
 import { App as SlackApp } from '@slack/bolt'
 import { SlackTs } from './types'
-const dayjs = require('dayjs')
-import 'dayjs/locale/ja'
-dayjs.locale('ja')
+import dayjs = require('dayjs');
+import ja = require("dayjs/locale/ja");
 
 const generateJoinMessage = (players: Player[]) => {
+  dayjs.locale(ja)
   let message: string[] = []
   const newLine = () => message.push(` `)
   const writeLine = (value: string) => message.push(value)
