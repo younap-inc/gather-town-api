@@ -1,26 +1,29 @@
 import type { Game as Gather, Player } from '@gathertown/gather-game-client'
 import { App as SlackApp } from '@slack/bolt'
 import { SlackTs } from './types'
-import dayjs = require('dayjs');
-import ja = require("dayjs/locale/ja");
+import * as dayjs from 'dayjs'
+import * as utc from 'dayjs/plugin/utc'
+import * as timezone from 'dayjs/plugin/timezone'
+import 'dayjs/locale/ja'
 
 const generateJoinMessage = (players: Player[]) => {
-  dayjs.locale(ja)
+  dayjs.locale('ja')
+  dayjs.extend(utc)
+  dayjs.extend(timezone)
+  dayjs.tz.setDefault('Asia/Tokyo')
   let message: string[] = []
   const newLine = () => message.push(` `)
   const writeLine = (value: string) => message.push(value)
 
   // Write the header.
-  writeLine(
-    `:fried_egg:参加人数\n*${players.length}* 人がオフィスにいるぞ`
-  )
+  writeLine(`:fried_egg:参加人数\n*${players.length}* 人がオフィスにいるぞ`)
   const playerNames = players.map((player) => player.name).join(', ')
   newLine()
   if (playerNames) {
     writeLine(`:portrait01:参加者\n ${playerNames}`)
     newLine()
   }
-  writeLine(`更新日時 ${dayjs().format('HH:mm:ss')}`)
+  writeLine(`更新日時 ${dayjs().add(9, 'hour').format('HH:mm:ss')}`)
   newLine()
   return message.join('\n')
 }
@@ -50,7 +53,11 @@ export const postJoinMessage = async (
   gather: Gather,
   slack: SlackApp
 ): Promise<SlackTs> => {
-  const today = dayjs().format('YYYY-MM-DD')
+  dayjs.locale('ja')
+  dayjs.extend(utc)
+  dayjs.extend(timezone)
+  dayjs.tz.setDefault('Asia/Tokyo')
+  const today = dayjs().add(9, 'hour').format('YYYY-MM-DD')
   await deleteAllMessages(slack, process.env.SLACK_CHANNEL_ID || '')
   const players = Object.keys(gather.players).map((key) => gather.players[key])
   const text = generateJoinMessage(players)
